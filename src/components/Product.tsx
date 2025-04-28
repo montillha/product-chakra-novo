@@ -1,19 +1,21 @@
-import { Box, Button, ButtonGroup, Card, Image, Text } from "@chakra-ui/react"
+import {  Button,Card, Image, Text } from "@chakra-ui/react"
+
 import { PenIcon, Trash2Icon,} from "lucide-react"
-interface ProductInterface{
-    id:number;
-    title:string;
-    price:number;
-    decription:string;
-    category:string;
-    image:string;
-}
+import { useNavigate } from "react-router-dom";
+
+import { ProductInterface } from "@/interface/interface";
+
 interface ProductProps{
   product:ProductInterface;
   deleteProduct:(id:number)=>void;
+  updateForm:(id:number)=>void;
 }
 
-const Product = ({product,deleteProduct}:ProductProps) => {
+
+const Product = ({product,deleteProduct,updateForm}:ProductProps) => {
+  const navigate = useNavigate();
+
+
   return (
 
     <Card.Root maxW="sm" overflow="hidden" p='4'>
@@ -32,8 +34,8 @@ const Product = ({product,deleteProduct}:ProductProps) => {
     </Card.Body>
     <Card.Footer gap="2">
     
-        <Button variant ='surface' colorPalette='gray'>See details</Button>
-        <Button variant='ghost'><PenIcon/></Button>
+        <Button variant ='surface' colorPalette='gray' onClick={()=>navigate(`/product/${product.id}`)}>See details</Button>
+        <Button variant='ghost' onClick={()=>updateForm(product.id)}><PenIcon/></Button>
         <Button variant='ghost' colorPalette='red' onClick={()=>deleteProduct(product.id)}>
           <Trash2Icon/>
         </Button>

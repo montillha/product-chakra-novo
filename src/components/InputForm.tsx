@@ -1,4 +1,5 @@
-import { Box, Field, Input, defineStyle } from "@chakra-ui/react"
+import { Box, Field, Input, defineStyle } from "@chakra-ui/react";
+
 const floatingStyles = defineStyle({
   pos: "absolute",
   bg: "bg",
@@ -18,25 +19,31 @@ const floatingStyles = defineStyle({
     top: "-3",
     insetStart: "2",
   },
-})
+});
 
-type InputFormProps= {
-  text: string
-  type?: string
-}
+type InputFormProps = {
+  text: string;
+  type?: string;
+  value: string | number | undefined;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
 
-const InputForm = ({text,type}:InputFormProps) => {
+const InputForm = ({ text, type, value, onChange }: InputFormProps) => {
   return (
+    <Field.Root>
+      <Box pos="relative" w="full">
+        <Input
+          type={type}
+          className="peer"
+          placeholder=""
+          mb="3"
+          value={value}
+          onChange={onChange}
+        />
+        <Field.Label css={floatingStyles}>{text}</Field.Label>
+      </Box>
+    </Field.Root>
+  );
+};
 
-        <Field.Root>
-          <Box pos="relative" w="full">
-          <Input type={type} className='peer' placeholder=""  mb='3' />
-            <Field.Label css={floatingStyles}>{text}</Field.Label>
-          </Box>
-        </Field.Root>
-      )
-    
-
-}
-
-export default InputForm
+export default InputForm;
